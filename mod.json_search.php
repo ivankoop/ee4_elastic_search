@@ -10,7 +10,7 @@ class Json_search
     public function __construct()
 	{
         $this->like_input = $_GET['in'];
-        $this->cat_id = $_GET['c'];
+        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
     }
 
     public function do_search()
