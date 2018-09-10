@@ -52,9 +52,7 @@ class Json_search
             $this->output();
         }
 
-        $index = 0;
         $ids_to_remove = [];
-
         foreach($this->output as $key => $value) {
 
             $has_cat = false;
@@ -70,13 +68,10 @@ class Json_search
                     array_push($ids_to_remove, $key);
                 }
             }
-
-            $index++;
         }
 
 
         $this->output = array_diff_key($this->output, array_flip($ids_to_remove));
-
         $this->output();
 
     }
