@@ -19,7 +19,7 @@ class Json_search
 
         $like_query = ee()->db->select('entry_id, title')
                                 ->from('exp_channel_titles')
-                                ->where('channel_id',3)
+                                ->where('channel_id',"3")
                                 ->where_not_in('status','closed')
                                 ->where('expiration_date >', strval(time()))
                                 ->or_where('expiration_date', '0')
