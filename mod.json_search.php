@@ -9,7 +9,8 @@ class Json_search
 
     public function __construct()
 	{
-        $this->like_input = $_GET['in'];
+
+        $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
         $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
     }
 
@@ -18,6 +19,7 @@ class Json_search
 
         $like_query = ee()->db->select('entry_id, title')
                                 ->from('exp_channel_titles')
+                                ->where('channel_id',3)
                                 ->where_not_in('status','closed')
                                 ->where('expiration_date >', strval(time()))
                                 ->or_where('expiration_date', '0')
@@ -34,7 +36,6 @@ class Json_search
             $this->output[$value['entry_id']] = $value;
             $this->output[$value['entry_id']]['categories'] = [];
         }
-
 
 
         $categories_query = ee()->db->select('exp_post.entry_id, exp_cat.cat_id,exp_cat.parent_id')
