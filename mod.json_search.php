@@ -54,7 +54,7 @@ class Json_search
         $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
         $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
 
-        //simple search. TODO: improve logic here fore better results
+        //simple search. TODO: improve logic here for better results
         $params = [
             'index' => 'ee_search',
             'type' => 'producto_entry',
