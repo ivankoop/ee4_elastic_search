@@ -1,34 +1,78 @@
 <?php if( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once 'vendor/autoload.php';
+
+use Elasticsearch\ClientBuilder;
+
 class Json_search
 {
+
     private $limit = 500;
     private $output = [];
     private $like_input = "";
     private $cat_id = null;
+    private $elastic_client = NULL;
 
     public function __construct()
 	{
+        $this->elastic_client = ClientBuilder::create()->build();
+    }
 
-        $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
-        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
+    public function insertToElastic()
+    {
+
+        $query = ee()->db->select('exp_titles.entry_id,
+                                        exp_titles.title,
+                                        exp_desc.field_id_10 as description')
+                        ->from('exp_channel_titles as exp_titles')
+                        ->join('exp_channel_data_field_10 exp_desc','exp_titles.entry_id = exp_desc.entry_id');
+
+        $result_array = $query->get()->result_array();
+
+        //insert db data in elastic node
+        foreach($result_array as $result) {
+
+            $params = [
+                'index' => 'ee_search',
+                'type' => 'producto_entry',
+                'id' => $result['entry_id'],
+                'body' => [
+                    'title' => $result['title'],
+                    'description' => $result['description']
+                ]
+            ];
+
+            $this->elastic_client->index($params);
+
+        }
+
     }
 
     public function do_search()
     {
 
-        $like_query = ee()->db->select('entry_id, title')
-                                ->from('exp_channel_titles')
-                                ->where('channel_id',"3")
-                                ->where_not_in('status','closed')
-                                ->where('expiration_date >', strval(time()))
-                                ->or_where('expiration_date', '0')
-                                ->like('title', $this->like_input)
-                                ->order_by('entry_date','DESC')
-                                ->limit($this->limit);
+        $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
+        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
 
+        //simple search. TODO: improve logic here fore better results
+        $params = [
+            'index' => 'ee_search',
+            'type' => 'producto_entry',
+            'body' => [
+                'query' => [
+                    'multi_match' => [
+                        'fields' => ['title','description'],
+                        'query' => $this->like_input,
+                        'fuzziness' => "2"
+                    ]
+                ]
+            ]
+        ];
 
-        $result = $like_query->get()->result_array();
+        $response = $this->elastic_client->search($params);
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
 
 
         foreach ($result as $value) {
@@ -37,7 +81,7 @@ class Json_search
             $this->output[$value['entry_id']]['categories'] = [];
         }
 
-
+        //TODO: remove this query
         $categories_query = ee()->db->select('exp_post.entry_id, exp_cat.cat_id,exp_cat.parent_id')
                                     ->from('exp_category_posts as exp_post')
 			                        ->join('exp_categories exp_cat', 'exp_cat.cat_id = exp_post.cat_id')
@@ -70,7 +114,6 @@ class Json_search
                 }
             }
         }
-
 
         $this->output = array_diff_key($this->output, array_flip($ids_to_remove));
         $this->output();
