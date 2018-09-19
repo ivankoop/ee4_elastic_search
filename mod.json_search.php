@@ -10,7 +10,7 @@ class Json_search
     private $limit = 500;
     private $output = [];
     private $like_input = "";
-    private $cat_id = null;
+    private $cat_id = NULL;
     private $elastic_client = NULL;
 
     public function __construct()
@@ -29,7 +29,7 @@ class Json_search
 
         $result_array = $query->get()->result_array();
 
-        //insert db data in elastic node
+
         foreach($result_array as $result) {
 
             $params = [
@@ -50,11 +50,11 @@ class Json_search
 
     public function do_search()
     {
-
+        $this->insertToElastic();
         $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
         $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
 
-        //simple search. TODO: improve logic here for better results
+
         $params = [
             'index' => 'ee_search',
             'type' => 'producto_entry',
@@ -81,7 +81,6 @@ class Json_search
             $this->output[$value['entry_id']]['categories'] = [];
         }
 
-        //TODO: remove this query
         $categories_query = ee()->db->select('exp_post.entry_id, exp_cat.cat_id,exp_cat.parent_id')
                                     ->from('exp_category_posts as exp_post')
 			                        ->join('exp_categories exp_cat', 'exp_cat.cat_id = exp_post.cat_id')
