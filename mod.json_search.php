@@ -50,7 +50,7 @@ class Json_search
 
     public function do_search()
     {
-        //$this->insertToElastic();
+        $this->insertToElastic();
         $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
         $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
 
