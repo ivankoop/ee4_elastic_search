@@ -68,9 +68,10 @@ class Json_search
                 'query' => [
                     'multi_match' => [
                         'fields' => ['title^7','description^2'],
-                        'type' => 'most_fields',
+                        'type' => 'cross_fields',
+
                         'query' => $this->like_input,
-                        'fuzziness' => "1"
+                    
                     ]
                 ]
             ]
