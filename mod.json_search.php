@@ -67,7 +67,7 @@ class Json_search
             'body' => [
                 'query' => [
                     'multi_match' => [
-                        'fields' => ['title^10','description'],
+                        'fields' => ['title^10'],
                         'type' => 'most_fields',
                         'query' => $this->like_input,
                         'fuzziness' => "1"
@@ -100,7 +100,9 @@ class Json_search
 
         $es_result = $response['hits']['hits'];
 
-
+        if(empty($es_result)) {
+            $this->output();
+        }
 
         foreach ($es_result as $value) {
             $entries_ids[] = $value['_id'];
