@@ -59,12 +59,7 @@ class Json_search
     {
 
         $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
-        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
-        $this->insert_to_elastic = isset($_GET['insert']) ? $_GET['insert'] : "";
-
-        if($this->insert_to_elastic == "true") {
-            $this->insertToElastic(); exit;
-        }
+        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;    
 
         $params = [
             'index' => 'ee_search',
