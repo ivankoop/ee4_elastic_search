@@ -67,7 +67,7 @@ class Json_search
             'body' => [
                 'query' => [
                     'multi_match' => [
-                        'fields' => ['title','description'],
+                        'fields' => ['title^3','description'],
                         'type' => 'most_fields',
                         'query' => $this->like_input,
                         'fuzziness' => "1"
