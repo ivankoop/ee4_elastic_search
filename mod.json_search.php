@@ -12,7 +12,6 @@ class Json_search
     private $like_input = "";
     private $cat_id = NULL;
     private $elastic_client = NULL;
-    private $insert_to_elastic = "false";
     private $is_recursive_call = false;
 
     public function __construct()
