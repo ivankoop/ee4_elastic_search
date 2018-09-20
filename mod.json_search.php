@@ -59,7 +59,7 @@ class Json_search
     {
 
         $this->like_input = isset($_GET['in']) ? $_GET['in'] : "";
-        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;    
+        $this->cat_id = isset($_GET['c']) ? $_GET['c'] : null;
 
         $params = [
             'index' => 'ee_search',
@@ -68,8 +68,9 @@ class Json_search
                 'query' => [
                     'multi_match' => [
                         'fields' => ['title','description'],
+                        'type' => 'most_fields',
                         'query' => $this->like_input,
-                        'fuzziness' => "2"
+                        'fuzziness' => "1"
                     ]
                 ]
             ]
