@@ -70,7 +70,7 @@ class Json_search
                         'fields' => ['title','description'],
                         'type' => 'most_fields',
                         'query' => $this->like_input,
-                        'fuzziness' => "1"
+                        'fuzziness' => "2"
                     ]
                 ]
             ]
