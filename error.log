@@ -1,0 +1,8 @@
+You messed up!You messed up!You messed up!You messed up!SUCCESS --> index deletedFATAL ERROR --> {"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"},"status":404}FATAL ERROR --> {"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"},"status":404}
+FATAL ERROR --> {"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"}],"type":"index_not_found_exception","reason":"no such index","resource.type":"index_or_alias","resource.id":"ee_search","index_uuid":"_na_","index":"ee_search"},"status":404}
+SUCCESS --> index deleted
+SUCCESS --> index deleted
+SUCCESS --> index deleted
+SUCCESS --> index deleted
+SUCCESS --> index deleted
+SUCCESS --> index deleted
