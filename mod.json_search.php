@@ -12,12 +12,10 @@ class Json_search
     private $like_input = "";
     private $cat_id = NULL;
     private $elastic_client = NULL;
-    private $is_recursive_call = false;
 
     public function __construct()
 	{
         $this->elastic_client = ClientBuilder::create()->build();
-
     }
 
     public function insertToElastic()
@@ -49,7 +47,7 @@ class Json_search
                 ]
             ];
 
-            $response = $this->elastic_client->index($params);
+            $this->elastic_client->index($params);
 
         }
 
@@ -93,6 +91,7 @@ class Json_search
 
             } else {
                 error_log("RECURSIVE CALL ERROR --> " . "do_search() recursive error".PHP_EOL, 3, "error.log");
+                exit;
             }
 
         }
@@ -123,7 +122,6 @@ class Json_search
 
 
         if($this->cat_id == null) {
-
             $this->output();
         }
 
