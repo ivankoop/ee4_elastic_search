@@ -1,5 +1,26 @@
 <?php
 
+/**
+ * ExpressionEngine - by EllisLab
+ *
+ * @package     ExpressionEngine
+ * @author      ExpressionEngine Dev Team
+ * @copyright   Copyright (c) 2003 - 2018, EllisLab, Inc.
+ * @license     http://expressionengine.com/user_guide/license.html
+ * @link        http://expressionengine.com
+ * @since       Version 2.0
+ * @filesource
+ */
+
+/**
+ * 
+ * @package    ExpressionEngine
+ * @subpackage Addons
+ * @category   Module
+ * @author     Ivan Koop
+ * @link       https://vikm.co/
+ */
+
 require_once 'vendor/autoload.php';
 
 use Elasticsearch\ClientBuilder;

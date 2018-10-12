@@ -1,5 +1,26 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * ExpressionEngine - by EllisLab
+ *
+ * @package     ExpressionEngine
+ * @author      ExpressionEngine Dev Team
+ * @copyright   Copyright (c) 2003 - 2018, EllisLab, Inc.
+ * @license     http://expressionengine.com/user_guide/license.html
+ * @link        http://expressionengine.com
+ * @since       Version 2.0
+ * @filesource
+ */
+
+/**
+ *
+ * @package    ExpressionEngine
+ * @subpackage Addons
+ * @category   Module
+ * @author     Ivan Koop
+ * @link       https://vikm.co/
+ */
+
 class Json_search_upd
 {
 	var $version = "1.0.0";
