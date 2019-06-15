@@ -13,7 +13,7 @@
  */
 
 /**
- * 
+ *
  * @package    ExpressionEngine
  * @subpackage Addons
  * @category   Module
@@ -44,9 +44,13 @@ class Json_search
 
         $query = ee()->db->select('exp_titles.entry_id,
                                         exp_titles.title,
-                                        exp_desc.field_id_10 as description')
+                                        exp_desc.field_id_10 as description,
+                                        exp_cat.cat_name as category')
                         ->from('exp_channel_titles as exp_titles')
-                        ->join('exp_channel_data_field_10 exp_desc','exp_titles.entry_id = exp_desc.entry_id');
+                        ->join('exp_channel_data_field_10 exp_desc','exp_titles.entry_id = exp_desc.entry_id')
+                        ->join('exp_category_posts exp_posts','exp_titles.entry_id = exp_posts.entry_id')
+                        ->join('exp_categories exp_cat','exp_posts.cat_id = exp_cat.cat_id');
+
 
 
         try {
@@ -63,7 +67,7 @@ class Json_search
                 'type' => 'producto_entry',
                 'id' => $result['entry_id'],
                 'body' => [
-                    'title' => $result['title'],
+                    'title' => $result["category"]." ".$result['title'],
                     'description' => $result['description']
                 ]
             ];
